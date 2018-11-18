@@ -92,22 +92,29 @@ If you want swank-js to run on a differnet port, add it as the third element to 
   (interactive)
   (setq slime-js-swank-buffer (apply #'make-comint "swank-js"  (expand-file-name slime-js-swank-command) nil slime-js-swank-args)))
 
+; setup NODE repl
 (defun slime-js-event-hook-function (event)
   (when (equal "JS" (slime-lisp-implementation-type))
     (slime-dcase event
-      ((:new-package package prompt)
-       (let ((buffer (slime-connection-output-buffer)))
-         (setf (slime-lisp-package) package)
-         (setf (slime-lisp-package-prompt-string) prompt)
-         (when (buffer-live-p buffer)
-           (with-current-buffer buffer
-             (setq slime-buffer-package package)
-             (slime-js-repl-update-package)
-             (save-excursion
-               (goto-char (marker-position slime-repl-prompt-start-mark))
-               (slime-mark-output-start))))
-         t))
-      (t nil))))
+      ((:return value id)
+       (let ((lst (getf value :ok)))
+	 (when (and (not (null lst))
+		    (= (length lst) 2))
+	   (let ((buffer (slime-connection-output-buffer))
+		 (package (first lst))
+		 (prompt (second lst)))
+	     (when (eql 'NODE package)
+               (setf (slime-lisp-package) package)
+               (setf (slime-lisp-package-prompt-string) prompt)
+               (when (buffer-live-p buffer)
+		 (with-current-buffer buffer
+		   (setq slime-buffer-package package)
+		   (slime-js-repl-update-package)
+		   (save-excursion
+		     (goto-char (marker-position slime-repl-prompt-start-mark))
+		     (slime-mark-output-start))))
+               t)))))  ;; consume the event
+      (t nil))))       ;; pass through to slime-dispatch-event in slime.el
 
 (defvar slime-js-remote-history nil
   "History list for JS remote names.")

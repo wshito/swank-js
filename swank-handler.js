@@ -48,7 +48,7 @@ var S = lisp.S, list = lisp.list, consp = lisp.consp, car = lisp.car, cdr = lisp
     repr = lisp.repr, fromLisp = lisp.fromLisp, toLisp = lisp.toLisp;
 var Completion = require("./completion").Completion;
 
-var DEFAULT_SLIME_VERSION = "2012-02-12";
+var DEFAULT_SLIME_VERSION = "2.22";
 var console = { log: function(){} };
 
 // hack for require.resolve("./relative") to work properly.
