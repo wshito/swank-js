@@ -52,11 +52,14 @@ that Socket.IO has good cross-browser support.
 Status
 ------
 
-As of now swank-js provides REPL with an ability to work with multiple
+This forked version runs REPL for Node.js with the latest Slime 2.22.
+The browser connection is unsable and not fully supported yet.
+
+<!-- As of now swank-js provides REPL with an ability to work with multiple
 browser connections, supports dynamic updates of JavaScript code using
 C-c C-c / C-M-x, provides debug output function and an ability to
 reload web pages in the browser or refresh their CSS using Emacs
-commands.
+commands. -->
 
 Many aspects of full-fledged SWANK backends aren't implemented yet,
 there's no debugger/completion/autodoc and so on, but as I plan to use
@@ -68,32 +71,33 @@ Installation
 
 1. Install [Node.JS](http://nodejs.org) and [npm](http://npmjs.org/)
 
-2. Install swank-js from npm:
+2. Install swank-js from <!-- npm --> this git repository by cloning until the change is merged to the official repository:
+<!-- npm install -g swank-js -->
 
-        npm install -g swank-js
+        git clone <the url for this repository>
 
-3. Get recent [SLIME](http://common-lisp.net/project/slime/) from its CVS
-or the [git mirror](https://github.com/antifuchs/slime.git). The backend
-was verified to work with SLIME 2012-02-12, it may or may not work with
-other versions, but note that breaking change in the protocol was introduced
-in SLIME 2011-11-27.
+3. Get recent SLIME from MELPA or [GitHub](https://github.com/slime/slime). The Node REPL was
+verified to work with SLIME 2.22.
 
-4. Make sure you have latest [js2-mode](http://code.google.com/p/js2-mode/).
-Add it to your .emacs:
+4. Create a symbolic link to `swank-js/slime-js.el` from the `contrib` subdirectory of
+SLIME project.
+
+        cd <slime-dir>/contrib
+        ln -s <swank-js-dir>/slime-js.el ./
+
+5. Install [js2-mode](https://github.com/mooz/js2-mode) into emacs from
+   http://tromey.com/elpa/.  `slime-js.el` depends on js2-mode.
+
+6. Add js2-mode settings to your .emacs.
 
         (add-to-list 'load-path "/path/to/js2-mode/directory")
         (autoload 'js2-mode "js2-mode" nil t)
         (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-5. Create symbolic link to slime-js.el in the contrib subdirectory of
-SLIME project.
-
-6. Install [js2-mode](http://code.google.com/p/js2-mode/) into emacs from
-   http://tromey.com/elpa/
-
 7. In your .emacs, add the following lines (you may use other key for
 slime-js-reload; also, if you're already using SLIME, just add slime-js
-to the list of contribs, otherwise adjust the load-path item):
+to the list of contribs, otherwise adjust the load-path item).
+`slime-js-minor-mode` provides the necessary key-bindings.
 
         (global-set-key [f5] 'slime-js-reload)
         (add-hook 'js2-mode-hook
@@ -110,7 +114,7 @@ to the list of contribs, otherwise adjust the load-path item):
 Usage
 -----
 
-If you want to use swank from the node project just add following to your
+<!-- If you want to use swank from the node project just add following to your
 package.json file:
 
       {
@@ -130,12 +134,14 @@ running:
 Alternatively you can install swank-js globally by running:
 
         npm install -g swank-js
+-->
 
-Once installed you could run it from you project directory:
+Run `swank-js` from you project directory:
 
-        swank-js
+        cd <node-project-dir>
+        node <path-to-swank-js>/swank-js.js
 
-Make SLIME connect to the backend using `M-x slime-connect` and
+Make SLIME connect to the `swank-js` server using `M-x slime-connect` and
 specifying `localhost` and port `4005`. You will see REPL buffer
 with the following prompt:
 
@@ -144,9 +150,11 @@ with the following prompt:
 This means that you're currently talking to Node.JS. You may play
 around with it by running some JavaScript expressions.
 
-If you get warning about SLIME version mismatch, you may make it
-disappear until the next SLIME upgrade by typing *,js-slime-version*
-at the REPL and entering your SLIME version (e.g. 2010-11-13).
+---
+
+***[Below here is work in progress]***
+
+
 
 ### Connecting to a web browser ###
 
