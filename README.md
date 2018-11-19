@@ -71,12 +71,11 @@ Installation
 
 1. Install [Node.JS](http://nodejs.org) and [npm](http://npmjs.org/)
 
-2. Install swank-js from <!-- npm --> this git repository by cloning until the change is merged to the official repository:
-<!-- npm install -g swank-js -->
+2. Install swank-js from <!-- npm --> this git repository by cloning until the change is merged to the official repository:<!-- npm install -g swank-js -->
 
         git clone <the url for this repository>
 
-3. Get recent SLIME from MELPA or [GitHub](https://github.com/slime/slime). The Node REPL was
+3. Get recent SLIME from ELPA, MELPA, or [GitHub](https://github.com/slime/slime). The Node REPL was
 verified to work with SLIME 2.22.
 
 4. Create a symbolic link to `swank-js/slime-js.el` from the `contrib` subdirectory of
@@ -84,6 +83,11 @@ SLIME project.
 
         cd <slime-dir>/contrib
         ln -s <swank-js-dir>/slime-js.el ./
+
+5. Add the settings for SLIME and `slime-js.el` in your .emacs.
+
+        (add-to-list 'load-path "/your-slime-directory/slime")
+        (slime-setup  '(slime-fancy slime-js))
 
 5. Install [js2-mode](https://github.com/mooz/js2-mode) into emacs from
    http://tromey.com/elpa/.  `slime-js.el` depends on js2-mode.
