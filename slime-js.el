@@ -353,12 +353,17 @@ and embed it in a style element"
       (goto-char (js2-node-abs-end node)))
     (point)))
 
-;; FIXME: this breaks if // comment directly precedes the function
 (defun slime-js-send-defun ()
   (interactive)
   (save-excursion
     (lexical-let ((start (slime-js-start-of-toplevel-form))
                   (end (slime-js-end-of-toplevel-form)))
+      ;; For the case // comment is above the expression.
+      ;; This assumes the expression consists of more than one character.
+      ;; Add semicolon at the end of expression.
+      (when (= start end)
+	(goto-char (1+ end))
+	(setq end (slime-js-end-of-toplevel-form)))
       ;; FIXME: use slime-eval-region
       (slime-flash-region start end)
       (slime-js-eval
