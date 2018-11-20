@@ -52,14 +52,15 @@ that Socket.IO has good cross-browser support.
 Status
 ------
 
-This forked version runs REPL for Node.js with the latest Slime 2.22.
-The browser connection is unsable and not fully supported yet.
-
-<!-- As of now swank-js provides REPL with an ability to work with multiple
+As of now swank-js provides REPL with an ability to work with multiple
 browser connections, supports dynamic updates of JavaScript code using
 C-c C-c / C-M-x, provides debug output function and an ability to
 reload web pages in the browser or refresh their CSS using Emacs
-commands. -->
+commands.
+
+This forked version runs REPL for Node.js with the latest Slime 2.22.
+The browser connection is tested with FIREFOX-63.0.  The connection with
+Safari is unsable.
 
 Many aspects of full-fledged SWANK backends aren't implemented yet,
 there's no debugger/completion/autodoc and so on, but as I plan to use
@@ -153,12 +154,6 @@ with the following prompt:
 
 This means that you're currently talking to Node.JS. You may play
 around with it by running some JavaScript expressions.
-
----
-
-***[Below here is work in progress]***
-
-
 
 ### Connecting to a web browser ###
 
