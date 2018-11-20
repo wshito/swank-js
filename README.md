@@ -58,9 +58,9 @@ C-c C-c / C-M-x, provides debug output function and an ability to
 reload web pages in the browser or refresh their CSS using Emacs
 commands.
 
-This forked version runs REPL for Node.js with the latest Slime 2.22.
-The browser connection is tested with FIREFOX-63.0.  The connection with
-Safari is unsable.
+This forked version is tested with the latest environment, i.e. NodeJS 
+10.13.0, Slime 2.22, Emacs 26.1.  The browser connection is tested with
+Firefox 63.0.  The connection with Safari is unsable.
 
 Many aspects of full-fledged SWANK backends aren't implemented yet,
 there's no debugger/completion/autodoc and so on, but as I plan to use
